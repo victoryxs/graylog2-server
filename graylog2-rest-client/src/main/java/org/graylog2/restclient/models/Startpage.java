@@ -16,10 +16,9 @@
  */
 package org.graylog2.restclient.models;
 
-/**
- * @author Lennart Koopmann <lennart@torch.sh>
- */
-public class Startpage {
+import java.util.Objects;
+
+public final class Startpage {
 
     public enum Type {
         STREAM("Stream"),
@@ -47,21 +46,15 @@ public class Startpage {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Startpage)) return false;
 
-        Startpage startpage = (Startpage) o;
-
-        if (id != null ? !id.equals(startpage.id) : startpage.id != null) return false;
-        if (type != startpage.type) return false;
-
-        return true;
+        final Startpage that = (Startpage) o;
+        return Objects.equals(this.id, that.id) && Objects.equals(this.type, that.type);
     }
 
     @Override
     public int hashCode() {
-        int result = type != null ? type.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        return result;
+        return Objects.hash(this.id, this.type);
     }
 
     public Type getType() {

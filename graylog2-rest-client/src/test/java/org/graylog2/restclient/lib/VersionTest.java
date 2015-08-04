@@ -16,6 +16,8 @@
  */
 package org.graylog2.restclient.lib;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -44,6 +46,13 @@ public class VersionTest {
         assertFalse(new Version(0, 20, 0).equals(new Version(0, 20, 1)));
         assertFalse(new Version(0, 20, 0, "preview.1").equals(new Version(0, 20, 0, "preview.2")));
         assertFalse(new Version(0, 20, 0).equals(null));
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(Version.class)
+                .suppress(Warning.NONFINAL_FIELDS)
+                .verify();
     }
 
     @Test

@@ -42,7 +42,7 @@ import static com.google.common.base.Strings.nullToEmpty;
  * <p/>
  * http://semver.org/
  */
-public class Version implements Comparable<Version> {
+public final class Version implements Comparable<Version> {
     private static final Logger LOG = LoggerFactory.getLogger(Version.class);
 
     public final int major;
@@ -140,7 +140,7 @@ public class Version implements Comparable<Version> {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Version)) return false;
 
         Version that = (Version) o;
 

@@ -25,8 +25,7 @@ import org.joda.time.Seconds;
 
 import java.util.Map;
 
-public class RelativeRange implements TimeRange {
-
+public final class RelativeRange implements TimeRange {
     private final int range;
 
     public RelativeRange(int range) throws InvalidRangeParametersException {
@@ -77,11 +76,7 @@ public class RelativeRange implements TimeRange {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RelativeRange that = (RelativeRange) o;
-        return range == that.range;
+        return this == o || o instanceof RelativeRange && this.range == ((RelativeRange) o).range;
     }
 
     @Override

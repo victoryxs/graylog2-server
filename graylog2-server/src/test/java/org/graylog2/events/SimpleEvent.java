@@ -16,35 +16,41 @@
  */
 package org.graylog2.events;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
 
-public class SimpleEvent {
-    public String payload;
+@JsonAutoDetect
+public final class SimpleEvent {
+    @JsonProperty
+    private final String payload;
 
-    public SimpleEvent() {}
-
-    public SimpleEvent(String payload) {
+    @JsonCreator
+    public SimpleEvent(@JsonProperty("payload") String payload) {
         this.payload = payload;
     }
 
     @Override
     public String toString() {
-        return "payload=" + payload;
+        return MoreObjects.toStringHelper(this)
+                .add("payload", payload)
+                .toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !(o instanceof SimpleEvent)) return false;
 
-        SimpleEvent event = (SimpleEvent) o;
-        return Objects.equals(payload, event.payload);
+        final SimpleEvent that = (SimpleEvent) o;
+        return Objects.equals(this.payload, that.payload);
     }
 
     @Override
     public int hashCode() {
-        return payload != null ? payload.hashCode() : 0;
+        return Objects.hashCode(payload);
     }
 }

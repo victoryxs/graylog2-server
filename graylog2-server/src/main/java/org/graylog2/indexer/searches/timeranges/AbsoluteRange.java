@@ -27,8 +27,7 @@ import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AbsoluteRange implements TimeRange {
-
+public final class AbsoluteRange implements TimeRange {
     private final DateTime from;
     private final DateTime to;
 
@@ -96,10 +95,10 @@ public class AbsoluteRange implements TimeRange {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof AbsoluteRange)) return false;
 
         AbsoluteRange that = (AbsoluteRange) o;
-        return from.equals(that.from) && to.equals(that.to);
+        return Objects.equals(this.from, that.from) && Objects.equals(this.to, that.to);
 
     }
 

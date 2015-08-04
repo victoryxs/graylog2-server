@@ -22,10 +22,11 @@ import org.graylog2.utilities.date.NaturalDateParser;
 import org.joda.time.DateTime;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
-public class KeywordRange implements TimeRange {
+public final class KeywordRange implements TimeRange {
     private static final NaturalDateParser DATE_PARSER = new NaturalDateParser();
     private final String keyword;
 
@@ -91,17 +92,13 @@ public class KeywordRange implements TimeRange {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        KeywordRange that = (KeywordRange) o;
-        return keyword.equals(that.keyword);
+        return this == o || o instanceof KeywordRange && Objects.equals(this.keyword, ((KeywordRange) o).keyword);
 
     }
 
     @Override
     public int hashCode() {
-        return keyword.hashCode();
+        return Objects.hashCode(keyword);
     }
 }
 

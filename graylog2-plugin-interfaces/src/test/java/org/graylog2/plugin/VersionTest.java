@@ -22,6 +22,7 @@
  */
 package org.graylog2.plugin;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -50,6 +51,11 @@ public class VersionTest {
         assertFalse(new Version(0, 20, 0).equals(new Version(0, 20, 1)));
         assertFalse(new Version(0, 20, 0, "preview.1").equals(new Version(0, 20, 0, "preview.2")));
         assertFalse(new Version(0, 20, 0).equals(null));
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(Version.class).verify();
     }
 
     @Test
@@ -183,4 +189,6 @@ public class VersionTest {
         assertTrue(v.compareTo(new Version(1, 0, 0, "rc.3")) < 0);
         assertTrue(v.compareTo(new Version(1, 0, 0)) < 0);
     }
+
+
 }
