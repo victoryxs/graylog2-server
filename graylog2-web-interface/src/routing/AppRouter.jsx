@@ -39,6 +39,7 @@ import LoggersPage from 'pages/LoggersPage';
 import GettingStartedPage from 'pages/GettingStartedPage';
 import ShowMetricsPage from 'pages/ShowMetricsPage';
 import ShowNodePage from 'pages/ShowNodePage';
+import LdapPage from 'pages/LdapPage';
 
 const AppRouter = React.createClass({
   render() {
@@ -82,6 +83,7 @@ const AppRouter = React.createClass({
             <Route path={Routes.SYSTEM.USERS.edit(':username')} component={EditUsersPage}/>
             <Route path={Routes.SYSTEM.USERS.LIST} component={UsersPage}/>
             <Route path={Routes.SYSTEM.OVERVIEW} component={SystemOverviewPage}/>
+            <Route path={Routes.SYSTEM.LDAP} component={LdapPage}/>
           </Route>
         </Route>
       </Router>
