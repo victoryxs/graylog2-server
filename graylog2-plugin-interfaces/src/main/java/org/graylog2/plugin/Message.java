@@ -63,7 +63,7 @@ public class Message {
     public static final String FIELD_LEVEL = "level";
     public static final String FIELD_STREAMS = "streams";
 
-    private static final Pattern VALID_KEY_CHARS = Pattern.compile("^[\\w\\.\\-@]*$");
+    private static final Pattern VALID_KEY_CHARS = Pattern.compile("^[\\w\\-@]*$");
 
     public static final ImmutableSet<String> RESERVED_FIELDS = ImmutableSet.of(
             // ElasticSearch fields.
@@ -252,6 +252,9 @@ public class Message {
         if (RESERVED_FIELDS.contains(key) && !RESERVED_SETTABLE_FIELDS.contains(key) || !validKey(key)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Ignoring invalid or reserved key {} for message {}", key, getId());
+            }
+            if (key != null && key.contains(".")) {
+                LOG.warn("Ignoring field \"{}\"=\"{}\" - Keys with a \".\" character are not supported anymore since Graylog 2.0! (Message[{}])", key, value, toString());
             }
             return;
         }
